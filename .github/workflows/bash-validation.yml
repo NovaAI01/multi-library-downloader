@@ -15,24 +15,17 @@ jobs:
       - name: Install validation tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y shellcheck tree
+          sudo apt-get install -y --no-install-recommends ffmpeg nodejs python3-mutagen shellcheck tree curl
+          sudo curl --fail --location --show-error --silent \
+            https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
+            --output /usr/local/bin/yt-dlp
+          sudo chmod 0755 /usr/local/bin/yt-dlp
 
-      - name: Run Bash syntax validation
-        run: |
-          while IFS= read -r -d '' script; do
-            echo "bash -n ${script}"
-            bash -n "${script}"
-          done < <(find . -type f -name '*.sh' -print0 | sort -z)
+      - name: Run repository validation
+        run: ./scripts/validate.sh
 
-      - name: Run ShellCheck
-        run: |
-          while IFS= read -r -d '' script; do
-            echo "shellcheck ${script}"
-            shellcheck "${script}"
-          done < <(find . -type f -name '*.sh' -print0 | sort -z)
-
-      - name: Verify downloader executable bit
-        run: test -x scripts/download_albums.sh
+      - name: Print system report
+        run: ./scripts/system_report.sh
 
       - name: Print repository tree
         run: tree -a

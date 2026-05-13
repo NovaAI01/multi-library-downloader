@@ -22,7 +22,9 @@ Install the following tools before running the downloader:
 - `yt-dlp`
 - `ffmpeg`
 
-On Debian or Ubuntu systems, `ffmpeg` is commonly available through APT:
+For a fully automated Ubuntu/Debian setup, use the bootstrap script in the Quick Start section.
+
+Manual install example:
 
 ```bash
 sudo apt install ffmpeg
@@ -32,6 +34,40 @@ Install `yt-dlp` using the method recommended for your environment. For example:
 
 ```bash
 python3 -m pip install --user yt-dlp
+```
+
+## Quick Start
+
+Bootstrap a local Ubuntu/Debian environment:
+
+```bash
+./scripts/bootstrap_ubuntu.sh
+```
+
+The bootstrap installs only the downloader and validation dependencies used by this repository:
+
+```text
+ffmpeg nodejs python3-mutagen shellcheck tree curl
+```
+
+It verifies `git`, installs the latest stable `yt-dlp` from the official GitHub release if needed, prints PASS/FAIL status for each dependency, and finishes with an environment summary.
+
+Validate the repository:
+
+```bash
+./scripts/validate.sh
+```
+
+Print a local system report:
+
+```bash
+./scripts/system_report.sh
+```
+
+Run the downloader after reviewing `config/example_urls.txt`:
+
+```bash
+./scripts/download_albums.sh
 ```
 
 ## Usage
@@ -70,7 +106,15 @@ Run the local validation script before committing changes:
 ./scripts/validate.sh
 ```
 
-The validator checks Bash syntax, runs `shellcheck` when it is installed, and verifies that the downloader script is executable. GitHub Actions also validates pushes and pull requests automatically.
+The validator checks Bash syntax, runs `shellcheck` when it is installed, and verifies that every shell script is executable. GitHub Actions also validates pushes and pull requests automatically.
+
+Generate a dependency report at any time:
+
+```bash
+./scripts/system_report.sh
+```
+
+The report prints local tool versions and returns non-zero when a critical downloader dependency is missing.
 
 ## Logging And Archive Behavior
 

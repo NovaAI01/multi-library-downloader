@@ -2,8 +2,6 @@
 
 set -u
 
-readonly DOWNLOADER_SCRIPT="scripts/download_albums.sh"
-
 main() {
   local shell_files=()
   local failures=0
@@ -53,13 +51,15 @@ main() {
   fi
 
   printf '\n'
-  printf 'executable %s ... ' "$DOWNLOADER_SCRIPT"
-  if [[ -x "$DOWNLOADER_SCRIPT" ]]; then
-    printf 'PASS\n'
-  else
-    printf 'FAIL\n'
-    failures=$((failures + 1))
-  fi
+  for script in "${shell_files[@]}"; do
+    printf 'executable %s ... ' "$script"
+    if [[ -x "$script" ]]; then
+      printf 'PASS\n'
+    else
+      printf 'FAIL\n'
+      failures=$((failures + 1))
+    fi
+  done
 
   printf '\n'
   if [[ "$failures" -eq 0 ]]; then
