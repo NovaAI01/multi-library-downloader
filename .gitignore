@@ -1,0 +1,13 @@
+logs/*
+!logs/.gitkeep
+
+archive/*
+!archive/.gitkeep
+
+*.flac
+*.mp3
+*.m4a
+*.opus
+*.webm
+*.part
+*.temp

@@ -1,0 +1,3 @@
+# Example YouTube album URLs. Replace these with URLs you are lawfully permitted to download.
+https://www.youtube.com/playlist?list=OLAK5uy_lQG9V4j6NDTf6b71UxFQHXNQN1o3Vj64E
+https://www.youtube.com/playlist?list=OLAK5uy_kvp7QqWknpVEH70QO3A5pEi3lMhTJsVag
