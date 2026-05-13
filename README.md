@@ -62,6 +62,16 @@ The script writes converted audio files to:
 
 Blank lines and comment lines beginning with `#` are ignored.
 
+## Validation
+
+Run the local validation script before committing changes:
+
+```bash
+./scripts/validate.sh
+```
+
+The validator checks Bash syntax, runs `shellcheck` when it is installed, and verifies that the downloader script is executable. GitHub Actions also validates pushes and pull requests automatically.
+
 ## Logging And Archive Behavior
 
 All `yt-dlp` output is appended to:
