@@ -4,7 +4,7 @@ set -u
 
 readonly DEFAULT_URL_FILE="config/scarlette_licensed_urls.txt"
 readonly URL_FILE="${1:-$DEFAULT_URL_FILE}"
-readonly OUTPUT_DIR="${HOME}/Music/ScarletteTestLibrary"
+readonly OUTPUT_DIR="${SCARLETTE_OUTPUT_DIR:-${HOME}/Music/ScarletteTrackLibrary}"
 readonly MANIFEST_DIR="${OUTPUT_DIR}/_manifests"
 readonly SOURCE_MANIFEST="${MANIFEST_DIR}/source_manifest.csv"
 readonly DOWNLOAD_SUMMARY="${MANIFEST_DIR}/download_summary.json"
@@ -94,6 +94,7 @@ download_url() {
     --embed-metadata \
     --embed-thumbnail \
     --convert-thumbnails jpg \
+    --split-chapters \
     --retries 5 \
     --fragment-retries 5 \
     --retry-sleep 5 \
@@ -102,7 +103,17 @@ download_url() {
     --newline \
     --progress \
     --output "${OUTPUT_DIR}/%(album_artist,artist,uploader|Unknown Artist)s/%(album,title|Unknown Album)s/%(playlist_index|)s %(title)s.%(ext)s" \
+    --output "chapter:${OUTPUT_DIR}/%(album_artist,artist,uploader|Unknown Artist)s/%(title)s/%(section_number)02d %(section_title)s.%(ext)s" \
     "$url" 2>&1 | tee -a "$LOG_FILE"
+
+  find "$OUTPUT_DIR" -type f -iname "*.flac" \
+    | grep -Ei 'Full Album|Album Stream|FULL ALBUM|full album' \
+    | while IFS= read -r full_album_file; do
+        chapter_dir="${full_album_file%.*}"
+        if [[ -d "$chapter_dir" ]]; then
+          rm -f "$full_album_file"
+        fi
+      done
 }
 
 write_summary() {
