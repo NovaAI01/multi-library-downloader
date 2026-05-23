@@ -1,0 +1,14 @@
+# URLs rejected during Scarlette candidate review.
+# Keep this list small and evidence-based; discovery/filter scripts treat entries
+# here as hard rejects before Phase 3 review.
+
+# Wrong artist or unrelated album surfaced by ytsearch.
+https://www.youtube.com/watch?v=sHAsE6KBGlw
+https://www.youtube.com/watch?v=a4MT_YH5r3E
+https://www.youtube.com/watch?v=HLqIf17_FrQ
+https://www.youtube.com/watch?v=z4kR4puHp24
+https://www.youtube.com/watch?v=rRaYSeFj2TA
+https://www.youtube.com/watch?v=IQUSyrxJLJA
+https://www.youtube.com/watch?v=gZxPm06Dhn4
+https://www.youtube.com/watch?v=7Rzz2Q5bBKY
+https://www.youtube.com/watch?v=dJEWG-teqIg
