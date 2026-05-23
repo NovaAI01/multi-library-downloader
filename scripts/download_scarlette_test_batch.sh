@@ -109,8 +109,8 @@ download_url() {
   find "$OUTPUT_DIR" -type f -iname "*.flac" \
     | grep -Ei 'Full Album|Album Stream|FULL ALBUM|full album' \
     | while IFS= read -r full_album_file; do
-        chapter_dir="${full_album_file%.*}"
-        if [[ -d "$chapter_dir" ]]; then
+        parent_dir="$(dirname "$full_album_file")"
+        if find "$parent_dir" -maxdepth 1 -type f -regextype posix-extended -regex '.*/[0-9]{2} .+\\.flac' | grep -q .; then
           rm -f "$full_album_file"
         fi
       done
