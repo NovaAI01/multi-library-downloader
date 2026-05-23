@@ -9,3 +9,6 @@ archive/*
 !archive/.gitkeep
 
 *.log
+
+reports/*
+!reports/.gitkeep
