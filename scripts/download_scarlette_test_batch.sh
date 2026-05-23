@@ -106,12 +106,10 @@ download_url() {
     --output "chapter:${OUTPUT_DIR}/%(album_artist,artist,uploader|Unknown Artist)s/%(title)s/%(section_number)02d %(section_title)s.%(ext)s" \
     "$url" 2>&1 | tee -a "$LOG_FILE"
 
-  find "$OUTPUT_DIR" -type f -iname "*.flac" \
-    | grep -Ei 'Full Album|Album Stream|FULL ALBUM|full album' \
-    | while IFS= read -r full_album_file; do
-        parent_dir="$(dirname "$full_album_file")"
-        if find "$parent_dir" -maxdepth 1 -type f -regextype posix-extended -regex '.*/[0-9]{2} .+\\.flac' | grep -q .; then
-          rm -f "$full_album_file"
+  find "$OUTPUT_DIR" -type d \
+    | while IFS= read -r candidate_dir; do
+        if find "$candidate_dir" -maxdepth 1 -type f -name "[0-9][0-9] *.flac" | grep -q .; then
+          find "$candidate_dir" -maxdepth 1 -type f -iname "*.flac" ! -name "[0-9][0-9] *.flac" -delete
         fi
       done
 }
