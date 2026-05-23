@@ -11,7 +11,7 @@ readonly DOWNLOAD_SUMMARY="${MANIFEST_DIR}/download_summary.json"
 readonly LICENSE_NOTES="${MANIFEST_DIR}/license_notes.md"
 readonly LOG_FILE="logs/scarlette_test_batch.log"
 readonly FAILED_URLS_FILE="logs/scarlette_failed_urls.txt"
-readonly ARCHIVE_FILE="archive/scarlette_archive.txt"
+readonly ARCHIVE_FILE="${SCARLETTE_ARCHIVE_FILE:-archive/scarlette_archive.txt}"
 readonly MAX_TRACKS="${MAX_TRACKS:-25}"
 
 require_command() {
