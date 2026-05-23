@@ -99,8 +99,10 @@ download_url() {
     --retry-sleep 5 \
     --download-archive "$ARCHIVE_FILE" \
     --playlist-end "$MAX_TRACKS" \
+    --newline \
+    --progress \
     --output "${OUTPUT_DIR}/%(album_artist,artist,uploader|Unknown Artist)s/%(album,title|Unknown Album)s/%(playlist_index|)s %(title)s.%(ext)s" \
-    "$url" >>"$LOG_FILE" 2>&1
+    "$url" 2>&1 | tee -a "$LOG_FILE"
 }
 
 write_summary() {
