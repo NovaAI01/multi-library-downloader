@@ -1,8 +1,9 @@
-# URLs rejected during Scarlette candidate review.
-# Keep this list small and evidence-based; discovery/filter scripts treat entries
-# here as hard rejects before Phase 3 review.
+# URLs hard-excluded during Scarlette candidate review.
+# Keep this list small and evidence-based. Ambiguous, stylized, best-of, duplicate,
+# or otherwise messy-but-useful sources should stay out of this file and go through
+# the Phase 3 messy lane instead.
 
-# Wrong artist or unrelated album surfaced by ytsearch.
+# Known outside licensed artist scope, broken, or unusable source surfaced by ytsearch.
 https://www.youtube.com/watch?v=sHAsE6KBGlw
 https://www.youtube.com/watch?v=a4MT_YH5r3E
 https://www.youtube.com/watch?v=HLqIf17_FrQ
