@@ -122,6 +122,12 @@ proofing.
 Do not commit generated files under `reports/`, `logs/`, `archive/`, or downloaded
 media files.
 
+The Scarlette download wrapper removes leftover source containers and temporary
+files such as `.webm`, `.mp4`, `.mkv`, `.part`, `.ytdl`, `.temp`, and `.tmp`
+only when accepted converted audio exists in the same output directory. It does
+not clean `_manifests`, and it must not be replaced with ad hoc deletion of the
+proof library.
+
 Use the builder dry run or self test for deterministic validation:
 
 ```bash

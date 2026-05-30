@@ -85,6 +85,46 @@ count_audio_files() {
   find "$OUTPUT_DIR" -type f \( -iname "*.mp3" -o -iname "*.flac" -o -iname "*.wav" -o -iname "*.m4a" -o -iname "*.ogg" \) 2>/dev/null | wc -l
 }
 
+directory_has_accepted_audio() {
+  local candidate_dir="$1"
+
+  find "$candidate_dir" -maxdepth 1 -type f \
+    \( -iname "*.flac" -o -iname "*.mp3" -o -iname "*.wav" -o -iname "*.m4a" -o -iname "*.ogg" \) \
+    | grep -q .
+}
+
+cleanup_source_containers() {
+  local candidate_dir
+
+  # yt-dlp may leave source containers beside the converted FLAC output when
+  # extraction, chapter splitting, or post-processing succeeds. Those files are
+  # downloader intermediates, not accepted library artifacts, so remove them
+  # only when converted audio exists in the same output directory.
+  find "$OUTPUT_DIR" \
+    -path "$MANIFEST_DIR" -prune -o \
+    -type d -print \
+    | while IFS= read -r candidate_dir; do
+        if directory_has_accepted_audio "$candidate_dir"; then
+          find "$candidate_dir" -maxdepth 1 -type f \
+            \( -iname "*.webm" -o -iname "*.mp4" -o -iname "*.mkv" -o -iname "*.part" -o -iname "*.ytdl" -o -iname "*.temp" -o -iname "*.tmp" \) \
+            -delete
+        fi
+      done
+}
+
+cleanup_split_chapter_outputs() {
+  local candidate_dir
+
+  find "$OUTPUT_DIR" \
+    -path "$MANIFEST_DIR" -prune -o \
+    -type d -print \
+    | while IFS= read -r candidate_dir; do
+        if find "$candidate_dir" -maxdepth 1 -type f -name "[0-9][0-9] *.flac" | grep -q .; then
+          find "$candidate_dir" -maxdepth 1 -type f -iname "*.flac" ! -name "[0-9][0-9] *.flac" -delete
+        fi
+      done
+}
+
 download_url() {
   local url="$1"
 
@@ -106,12 +146,8 @@ download_url() {
     --output "chapter:${OUTPUT_DIR}/%(album_artist,artist,uploader|Unknown Artist)s/%(title)s/%(section_number)02d %(section_title)s.%(ext)s" \
     "$url" 2>&1 | tee -a "$LOG_FILE"
 
-  find "$OUTPUT_DIR" -type d \
-    | while IFS= read -r candidate_dir; do
-        if find "$candidate_dir" -maxdepth 1 -type f -name "[0-9][0-9] *.flac" | grep -q .; then
-          find "$candidate_dir" -maxdepth 1 -type f -iname "*.flac" ! -name "[0-9][0-9] *.flac" -delete
-        fi
-      done
+  cleanup_source_containers
+  cleanup_split_chapter_outputs
 }
 
 write_summary() {
