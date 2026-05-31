@@ -1,0 +1,59 @@
+# Scarlette licensed/permitted test batch URLs
+# One URL per line.
+# Only include album/playlist URLs you are licensed/permitted to download and keep.
+# Do not use ytsearch.
+# Do not include unauthorized streaming, DRM, torrent, or unclear sources.
+#
+# Allowed artist/source pool:
+# Deftones
+# System of a Down
+# Nothing More
+# Flyleaf
+# The Pretty Reckless
+# Halestorm
+# Breaking Benjamin
+# Three Days Grace
+# Chevelle
+# Seether
+# Starset
+# Bad Omens
+# Spiritbox
+# Sleep Token
+# Loathe
+# Architects
+# Bring Me the Horizon
+# I Prevail
+# Beartooth
+# Motionless in White
+# Falling in Reverse
+# From Ashes to New
+# Evans Blue
+# Red
+# Crossfade
+# 10 Years
+# Cold
+# Korn
+# Slipknot
+# Linkin Park
+# Papa Roach
+# Mudvayne
+# Static-X
+# P.O.D.
+# Tool
+# A Perfect Circle
+# Alice in Chains
+# Soundgarden
+# Stone Temple Pilots
+# Audioslave
+# Rage Against the Machine
+# Nine Inch Nails
+# Dayseeker
+# Holding Absence
+# Thornhill
+# Northlane
+# Polaris
+# ERRA
+# Currents
+# Fit for a King
+#
+# Paste licensed album/playlist URLs below.

@@ -13,6 +13,9 @@ This project is intended for personal media library workflows where you already 
 - Logs downloader output and failed URLs.
 - Continues processing after individual URL failures.
 - Displays batch progress, percentage complete, success count, and failure count.
+- The Scarlette proof-library wrapper removes leftover source containers such as
+  `.webm`, `.mp4`, `.mkv`, `.part`, `.ytdl`, `.temp`, and `.tmp` when converted
+  audio exists beside them.
 
 ## Dependencies
 
@@ -137,6 +140,22 @@ archive/archive.txt
 ```
 
 The archive file allows reruns to skip items that `yt-dlp` has already completed. The `logs/` and `archive/` directories are ignored by Git except for their `.gitkeep` files, so runtime logs and local archive state stay out of version control.
+
+## Scarlette Proof Library Cleanup
+
+`scripts/download_scarlette_test_batch.sh` writes to:
+
+```text
+~/Music/ScarletteTrackLibrary
+```
+
+After each URL run, the wrapper removes leftover source-container and temporary
+files only inside that output tree and only from directories that already contain
+accepted converted audio (`.flac`, `.mp3`, `.wav`, `.m4a`, or `.ogg`). The
+`_manifests` directory is pruned from cleanup.
+
+This keeps the proof library scanner focused on accepted audio and manifest
+evidence instead of intermediate containers left by `yt-dlp` post-processing.
 
 ## Limitations
 

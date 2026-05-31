@@ -45,3 +45,29 @@ archive/archive.txt
 When the script is rerun, `yt-dlp` uses that archive to skip media it has already downloaded. This makes reruns useful after temporary failures: keep the same URL file, rerun the command, and only missing items should be attempted again.
 
 Runtime files in `logs/` and `archive/` are intentionally excluded from Git. The `.gitkeep` files preserve the directories in a clean checkout.
+
+## Scarlette Proof Library Cleanup
+
+The Scarlette wrapper writes the active proof library to:
+
+```text
+~/Music/ScarletteTrackLibrary
+```
+
+After each URL run, `scripts/download_scarlette_test_batch.sh` removes leftover
+source containers and temporary files with these extensions when accepted
+converted audio exists in the same directory:
+
+```text
+.webm .mp4 .mkv .part .ytdl .temp .tmp
+```
+
+Accepted audio formats are preserved:
+
+```text
+.flac .mp3 .wav .m4a .ogg
+```
+
+The cleanup is limited to the configured Scarlette output directory and skips
+`_manifests`, so summary JSON, license notes, selected URL CSVs, and the source
+manifest remain intact.

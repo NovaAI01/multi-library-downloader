@@ -1,3 +1,14 @@
 .venv/
 __pycache__/
 *.pyc
+
+logs/*
+!logs/.gitkeep
+
+archive/*
+!archive/.gitkeep
+
+*.log
+
+reports/*
+!reports/.gitkeep
